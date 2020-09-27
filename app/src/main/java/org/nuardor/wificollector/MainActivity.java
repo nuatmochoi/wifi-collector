@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
 
     BroadcastReceiver wifiScanReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context c, Intent intent) {   // wifiManager.startScan(); 시  발동되는 메소드 ( 예제에서는 버튼을 누르면 startScan()을 했음. )
+        public void onReceive(Context c, Intent intent) {   // wifiManager.startScan(); 시  발동되는 메소드
 
-            boolean success = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false); //스캔 성공 여부 값 반환
+            boolean success = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false); // 스캔 성공 여부 값 반환
             if (success) {
                 scanSuccess();
             } else {
@@ -48,6 +48,19 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
 
     private void scanSuccess() {    // Wifi검색 성공
         List<ScanResult> results = wifiManager.getScanResults();
+        for(int i = 0; i < results.size(); i ++){
+            ScanResult w = results.get(i);
+            System.out.println("BSSID:" + w.BSSID);
+            if(w.level >= -40){
+                System.out.println("Good");
+            } else if(w.level < -40 && w.level >= -85){
+                System.out.println("Middle");
+            } else{
+                System.out.println("Bad");
+            }
+            System.out.println("LEVEL:" + w.level);
+
+        }
         mAdapter=new WifiAdapter(results);
         recyclerView.setAdapter(mAdapter);
     }
@@ -96,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements AutoPermissionsLi
     public void onGranted(int i, String[] strings) {
 
     }
-    //Permission에 관한 메소드
 
 
 }

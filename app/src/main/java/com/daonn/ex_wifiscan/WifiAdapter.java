@@ -46,14 +46,17 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.MyViewHolder> 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvWifiName;
+        public TextView tvBSSID;
         public MyViewHolder(View itemView) {
             super(itemView);
             tvWifiName=itemView.findViewById(R.id.tv_wifiName);
+            tvBSSID=itemView.findViewById(R.id.tv_BSSID);
 
         }
         public void setItem(ScanResult item){
 
             tvWifiName.setText(item.SSID);
+            tvBSSID.setText(item.BSSID);
 
         }
     }
